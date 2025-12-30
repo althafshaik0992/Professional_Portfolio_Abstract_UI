@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Althaf | Java & Spring Boot Developer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        :root{
+            --bg:#0b1220;
+            --bg2:#0d1730;
+            --card:rgba(255,255,255,.06);
+            --card2:rgba(255,255,255,.08);
+            --border:rgba(255,255,255,.12);
+            --text:rgba(255,255,255,.92);
+            --muted:rgba(255,255,255,.68);
+            --accent:#6ee7ff;
+            --accent2:#a78bfa;
+            --shadow:0 14px 44px rgba(0,0,0,.35);
+            --radius:18px;
+            --ring:rgba(110,231,255,.22);
+        }
+
+        [data-theme="light"]{
+            --bg:#f7f8fc;
+            --bg2:#ffffff;
+            --card:rgba(10,20,40,.05);
+            --card2:rgba(10,20,40,.07);
+            --border:rgba(10,20,40,.12);
+            --text:rgba(10,20,40,.92);
+            --muted:rgba(10,20,40,.62);
+            --shadow:0 14px 44px rgba(10,20,40,.12);
+            --ring:rgba(10,20,40,.14);
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+            color:var(--text);
+            overflow-x:hidden;
+            background:
+                    radial-gradient(900px 600px at 15% 20%, rgba(110,231,255,.14), transparent 60%),
+                    radial-gradient(700px 500px at 85% 10%, rgba(167,139,250,.16), transparent 55%),
+                    radial-gradient(900px 700px at 50% 95%, rgba(34,197,94,.08), transparent 60%),
+                    var(--bg);
+        }
+
+        a{color:inherit;text-decoration:none}
+        .container{width:min(1100px,92%);margin:0 auto}
+        .sr-only{position:absolute;left:-9999px}
+
+        /* NAVBAR */
+        .navbar{
+            position:sticky;top:0;z-index:50;
+            backdrop-filter:blur(14px);
+            background:color-mix(in srgb, var(--bg2) 65%, transparent);
+            border-bottom:1px solid var(--border);
+        }
+        .nav-container{
+            display:flex;align-items:center;justify-content:space-between;
+            padding:14px 0;
+            gap:14px;
+        }
+        .brand{
+            display:flex;align-items:center;gap:10px;font-weight:800;
+            letter-spacing:.2px;
+        }
+        .brand-dot{
+            width:10px;height:10px;border-radius:999px;
+            background:linear-gradient(135deg,var(--accent),var(--accent2));
+            box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+        }
+        .nav-links{
+            display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+            justify-content:flex-end;
+        }
+        .nav-links a{
+            color:var(--muted);
+            font-weight:700;
+            padding:10px 12px;
+            border-radius:10px;
+            transition:all .2s ease;
+        }
+        .nav-links a:hover{color:var(--text);background:var(--card)}
+        .nav-actions{display:flex;gap:10px;align-items:center}
+
+        /* Buttons */
+        .btn{
+            display:inline-flex;align-items:center;justify-content:center;gap:8px;
+            padding:10px 14px;border-radius:12px;
+            font-weight:800;
+            border:1px solid var(--border);
+            background:var(--card);
+            transition:transform .15s ease, background .2s ease, border-color .2s ease;
+            cursor:pointer;
+            user-select:none;
+        }
+        .btn:hover{transform:translateY(-1px);background:var(--card2)}
+        .btn.primary{
+            border:none;color:#07111f;
+            background:linear-gradient(135deg,var(--accent),var(--accent2));
+        }
+        .btn.ghost{background:transparent}
+        .btn:focus{outline:none;box-shadow:0 0 0 4px var(--ring)}
+
+        /* Toggle */
+        .toggle{
+            width:46px;height:40px;
+            border-radius:12px;border:1px solid var(--border);
+            background:var(--card);
+            display:inline-flex;align-items:center;justify-content:center;
+            cursor:pointer;
+            transition:background .2s ease;
+        }
+        .toggle:hover{background:var(--card2)}
+        .toggle span{font-size:16px;line-height:1}
+
+        /* HERO */
+        .hero{padding:58px 0 28px}
+        .badge{
+            display:inline-block;
+            padding:8px 12px;border-radius:999px;
+            border:1px solid var(--border);
+            background:var(--card);
+            font-weight:800;
+            color:color-mix(in srgb, var(--text) 85%, transparent);
+        }
+        h1{
+            font-size:clamp(34px,5vw,56px);
+            margin:18px 0 12px;
+            line-height:1.05;
+            letter-spacing:-.8px;
+        }
+        .subtitle{
+            max-width:780px;
+            color:var(--muted);
+            font-size:18px;
+            line-height:1.65;
+            margin:0;
+        }
+        .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+        .stats{
+            margin-top:22px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:14px;
+        }
+        .stat{
+            border:1px solid var(--border);
+            background:linear-gradient(180deg, var(--card2), var(--card));
+            border-radius:var(--radius);
+            padding:18px;
+            box-shadow:var(--shadow);
+            min-height:92px;
+        }
+        .stat-number{font-size:20px;font-weight:900}
+        .stat-label{margin-top:6px;color:var(--muted);font-weight:700;font-size:13px}
+
+        /* SECTIONS */
+        .section{padding:34px 0 68px}
+        .section-head{margin-bottom:16px}
+        .section-head h2{margin:0;font-size:26px;letter-spacing:-.3px}
+        .section-head p{margin:8px 0 0;color:var(--muted);line-height:1.6}
+
+        /* Skills */
+        .skills-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:14px;margin-top:18px;
+        }
+        .skill-card{
+            display:flex;gap:14px;
+            padding:18px;
+            border-radius:var(--radius);
+            border:1px solid var(--border);
+            background:linear-gradient(180deg, var(--card2), var(--card));
+            box-shadow:var(--shadow);
+            min-height:96px;
+            transition:transform .15s ease, border-color .2s ease;
+        }
+        .skill-card:hover{
+            transform:translateY(-2px);
+            border-color:color-mix(in srgb, var(--text) 20%, var(--border));
+        }
+        .icon{
+            width:42px;height:42px;flex:0 0 42px;
+            border-radius:14px;
+            display:flex;align-items:center;justify-content:center;
+            border:1px solid var(--border);
+            background:var(--card2);
+            font-size:18px;
+        }
+        .skill-card h3{margin:0 0 6px;font-size:16px}
+        .skill-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+
+        /* Projects */
+        .projects-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:18px;margin-top:20px;
+        }
+        .project-card{
+            border:1px solid var(--border);
+            background:linear-gradient(180deg, var(--card2), var(--card));
+            border-radius:var(--radius);
+            padding:22px;
+            box-shadow:var(--shadow);
+            display:flex;flex-direction:column;
+            transition:transform .15s ease, border-color .2s ease;
+        }
+        .project-card:hover{
+            transform:translateY(-2px);
+            border-color:color-mix(in srgb, var(--text) 20%, var(--border));
+        }
+        .project-header{
+            display:flex;justify-content:space-between;align-items:flex-start;
+            gap:12px;margin-bottom:8px;
+        }
+        .project-header h3{margin:0;font-size:18px}
+        .project-tag{
+            font-size:12px;font-weight:900;
+            padding:6px 10px;border-radius:999px;
+            background:var(--card2);
+            border:1px solid var(--border);
+            color:var(--muted);
+            white-space:nowrap;
+        }
+        .project-desc{color:var(--muted);line-height:1.6;margin:10px 0 12px}
+        .project-points{margin:0 0 14px;padding-left:18px;color:var(--muted)}
+        .project-points li{margin-bottom:6px}
+        .tech-stack{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+        .chip{
+            font-size:12px;font-weight:800;
+            padding:6px 10px;border-radius:999px;
+            border:1px solid var(--border);
+            background:var(--card2);
+        }
+        .project-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+
+        /* NEW: Experience + Education (timeline cards) */
+        .timeline{
+            margin-top:18px;
+            display:grid;
+            gap:14px;
+        }
+        .timeline-item{
+            border:1px solid var(--border);
+            background:linear-gradient(180deg, var(--card2), var(--card));
+            border-radius:var(--radius);
+            padding:18px;
+            box-shadow:var(--shadow);
+            position:relative;
+            overflow:hidden;
+        }
+        .timeline-item::before{
+            content:"";
+            position:absolute;
+            left:0;top:0;bottom:0;
+            width:4px;
+            background:linear-gradient(180deg,var(--accent),var(--accent2));
+            opacity:.9;
+        }
+        .role-row{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+            gap:14px;
+            flex-wrap:wrap;
+        }
+        .role-title{margin:0;font-size:16px;font-weight:900}
+        .role-sub{
+            margin:6px 0 0;
+            color:var(--muted);
+            font-weight:700;
+            font-size:13px;
+        }
+        .role-meta{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:flex-end;
+        }
+        .pill{
+            font-size:12px;
+            font-weight:900;
+            padding:6px 10px;
+            border-radius:999px;
+            border:1px solid var(--border);
+            background:var(--card2);
+            color:var(--muted);
+            white-space:nowrap;
+        }
+        .bullets{
+            margin:12px 0 0;
+            padding-left:18px;
+            color:var(--muted);
+            line-height:1.65;
+        }
+        .bullets li{margin-bottom:8px}
+
+        /* Footer */
+        .footer{
+            border-top:1px solid var(--border);
+            background:color-mix(in srgb, var(--bg2) 70%, transparent);
+        }
+        .footer-inner{
+            display:flex;justify-content:space-between;align-items:center;
+            gap:14px;flex-wrap:wrap;
+            padding:18px 0;
+            color:var(--muted);
+            font-weight:700;
+        }
+        .footer-links{display:flex;gap:14px;flex-wrap:wrap}
+        .footer-links a:hover{color:var(--text)}
+
+        @media (max-width: 720px){ .nav-links a:not(.btn){display:none} }
+    </style>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="container nav-container">
+        <a class="brand" href="#home">
+            <span class="brand-dot"></span>
+            <span>Althaf</span>
+        </a>
+
+        <div class="nav-actions">
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#home">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="/projects">Projects</a>
+                <a href="/contact" class="btn">Contact</a>
+            </nav>
+
+            <button id="themeToggle" class="toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main id="home">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <p class="badge">Java • Spring Boot • AWS</p>
+            <h1>Java & Spring Boot Developer</h1>
+            <p class="subtitle">
+                Building scalable backend systems, secure REST APIs, and cloud-ready applications using clean architecture and modern engineering practices.
+            </p>
+
+            <div class="cta-row">
+                <a class="btn primary" href="/projects">View Projects</a>
+
+                <!-- NOTE: Your current link points to a DOCX with spaces.
+                     It's strongly recommended to rename the file to:
+                     /resume/Althaf_Hussain_Resume.pdf (or .docx) with NO SPACES. -->
+                <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn" target="_blank" rel="noopener">View Resume</a>
+                <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn ghost" download="Althaf_Hussain_Resume.docx">Download Resume</a>
+
+                <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Spring</div>
+                    <div class="stat-label">Microservices</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">AWS</div>
+                    <div class="stat-label">Cloud Deployments</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-head">
+                <h2>Technical Skills</h2>
+                <p>Tools I use to design, build, and ship production systems.</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="icon">☕</div>
+                    <div>
+                        <h3>Java</h3>
+                        <p>Java 8/11/17, JVM tuning basics, multithreading, clean OOP design.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">🌱</div>
+                    <div>
+                        <h3>Spring Boot</h3>
+                        <p>Microservices, Spring MVC, Spring Security, validations, integrations.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">🔌</div>
+                    <div>
+                        <h3>REST APIs</h3>
+                        <p>API design, consistent error handling, versioning, Postman testing.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">☁</div>
+                    <div>
+                        <h3>AWS</h3>
+                        <p>Lambda, EC2, S3, RDS, IAM, CloudWatch, SNS/SQS, VPC, Secrets Manager.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">🐳</div>
+                    <div>
+                        <h3>DevOps</h3>
+                        <p>Docker, Kubernetes, Jenkins, Git, CI/CD, blue/green and zero-downtime patterns.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="icon">🗄</div>
+                    <div>
+                        <h3>Databases</h3>
+                        <p>MySQL, PostgreSQL, Oracle, MongoDB, Redis caching, SQL optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ NEW: EXPERIENCE -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-head">
+                <h2>Professional Experience</h2>
+                <p>Recent roles focused on scalable microservices, cloud deployments, and modern frontend modules.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="role-row">
+                        <div>
+                            <h3 class="role-title">Java Full Stack Developer — Galaxy3Corp</h3>
+                            <div class="role-sub">Virginia, USA</div>
+                        </div>
+                        <div class="role-meta">
+                            <span class="pill">Aug 2024 – Present</span>
+                            <span class="pill">Spring Boot • AWS • React</span>
+                        </div>
+                    </div>
+                    <ul class="bullets">
+                        <li>Designed and developed high-throughput Spring Boot microservices with modular architecture supporting high request rates.</li>
+                        <li>Built secure React + TypeScript modules and improved performance through optimized rendering and API usage.</li>
+                        <li>Implemented AWS Lambda + S3-triggered workflows and IAM-based access patterns to reduce manual operations.</li>
+                        <li>Optimized JVM GC and multithreading to reduce API latency and improve stability in production.</li>
+                        <li>Enhanced CI/CD pipelines using Jenkins + Docker + Kubernetes enabling zero-downtime deployments.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="role-row">
+                        <div>
+                            <h3 class="role-title">Java Full Stack Developer — VCloud Technology Group LLC</h3>
+                            <div class="role-sub">Virginia, USA</div>
+                        </div>
+                        <div class="role-meta">
+                            <span class="pill">Dec 2023 – Aug 2024</span>
+                            <span class="pill">SNS/SQS • Security • Redis</span>
+                        </div>
+                    </div>
+                    <ul class="bullets">
+                        <li>Designed event-driven microservices using AWS SNS/SQS for asynchronous workflows.</li>
+                        <li>Developed reusable UI components (Angular/React) reducing redundant API calls and improving UX.</li>
+                        <li>Implemented Spring Security + JWT to meet security compliance requirements.</li>
+                        <li>Introduced Redis caching to reduce database reads and increase overall throughput.</li>
+                        <li>Automated infrastructure and secrets management using CloudFormation + Secrets Manager.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="role-row">
+                        <div>
+                            <h3 class="role-title">Java Full Stack Developer — Techno9 Solutions INC</h3>
+                            <div class="role-sub">Virginia, USA</div>
+                        </div>
+                        <div class="role-meta">
+                            <span class="pill">Feb 2020 – Sep 2022</span>
+                            <span class="pill">Spring Boot • AWS EC2/RDS</span>
+                        </div>
+                    </div>
+                    <ul class="bullets">
+                        <li>Modernized legacy JBoss/Oracle applications into Spring Boot microservices deployed on AWS EC2/RDS.</li>
+                        <li>Built S3 + SNS/SQS pipelines to enable distributed processing and scalable integrations.</li>
+                        <li>Maintained strong test coverage using JUnit and Mockito; improved reliability during releases.</li>
+                        <li>Created Jenkins CI/CD pipelines with automated testing and blue/green deployment strategy.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data source: your resume PDF -->
+            <p style="margin-top:14px;color:var(--muted);font-size:12px;">
+                Experience summary based on resume. :contentReference[oaicite:0]{index=0}
+            </p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-head">
+                <h2>Featured Projects</h2>
+                <p>Two real-world apps with end-to-end development and backend ownership.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <h3>The Spice Jar</h3>
+                        <span class="project-tag">E-Commerce</span>
+                    </div>
+
+                    <p class="project-desc">
+                        Full-stack food ordering platform with admin dashboard, cart, checkout, and order lifecycle.
+                    </p>
+
+                    <ul class="project-points">
+                        <li>Spring Boot REST APIs with clean layered architecture</li>
+                        <li>Role-based access for Admin vs Customer workflows</li>
+                        <li>MySQL schema design with optimized queries</li>
+                    </ul>
+
+                    <div class="tech-stack">
+                        <span class="chip">Java</span>
+                        <span class="chip">Spring Boot</span>
+                        <span class="chip">MySQL</span>
+                        <span class="chip">Thymeleaf</span>
+                        <span class="chip">AWS</span>
+                    </div>
+
+                    <div class="project-actions">
+                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME/spice-jar" target="_blank" rel="noopener">GitHub</a>
+                        <button class="btn primary" data-open="case-spice">Case Study</button>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-header">
+                        <h3>Healthy Life Tracker</h3>
+                        <span class="project-tag">Health Tech</span>
+                    </div>
+
+                    <p class="project-desc">
+                        Habit and wellness tracking app to monitor progress, daily routines, and lifestyle metrics.
+                    </p>
+
+                    <ul class="project-points">
+                        <li>Designed RESTful APIs for tracking health data and progress</li>
+                        <li>Validation and secure backend services</li>
+                        <li>Scalable Spring Boot architecture for growth</li>
+                    </ul>
+
+                    <div class="tech-stack">
+                        <span class="chip">Java</span>
+                        <span class="chip">Spring Boot</span>
+                        <span class="chip">REST APIs</span>
+                        <span class="chip">MySQL</span>
+                        <span class="chip">AWS</span>
+                    </div>
+
+                    <div class="project-actions">
+                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME/healthy-life-tracker" target="_blank" rel="noopener">GitHub</a>
+                        <button class="btn primary" data-open="case-health">Case Study</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ NEW: EDUCATION -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="section-head">
+                <h2>Education</h2>
+                <p>Academic background supporting software engineering fundamentals and modern development practices.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="role-row">
+                        <div>
+                            <h3 class="role-title">Master’s in Information Technology</h3>
+                            <div class="role-sub">Focus: Software systems, cloud, and applied development</div>
+                        </div>
+                        <div class="role-meta">
+                            <span class="pill">Jan 2018 – May 2020</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="role-row">
+                        <div>
+                            <h3 class="role-title">Master’s in Software Engineering</h3>
+                            <div class="role-sub">Focus: Software design, engineering practices, and project delivery</div>
+                        </div>
+                        <div class="role-meta">
+                            <span class="pill">Aug 2015 – Dec 2016</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top:14px;color:var(--muted);font-size:12px;">
+                Education details based on resume. :contentReference[oaicite:1]{index=1}
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-head">
+                <h2>Contact</h2>
+                <p>Want to collaborate or discuss an opportunity? Reach out.</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Let’s Connect</h3>
+                        <span class="project-tag">Open to Roles</span>
+                    </div>
+
+                    <p class="project-desc">Email works best. You can also connect via LinkedIn.</p>
+
+                    <div class="tech-stack">
+                        <span class="chip">Email: althafjava0992@gmail.com</span>
+                        <span class="chip">Location: Virginia, USA</span>
+                        <span class="chip">Role: Java / Full Stack</span>
+                    </div>
+
+                    <div class="project-actions">
+                        <a class="btn primary" href="mailto:althafjava0992@gmail.com">Email Me</a>
+                        <a class="btn ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Quick Links</h3>
+                        <span class="project-tag">Resume</span>
+                    </div>
+
+                    <p class="project-desc">View or download my resume and explore my work.</p>
+
+                    <div class="project-actions">
+                        <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn" target="_blank" rel="noopener">View Resume</a>
+                        <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn ghost" download="Althaf_Hussain_Resume.docx">Download Resume</a>
+                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <p>© 2025 Althaf Hussain. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Modals (kept as-is from your original; not repeated here to keep focus) -->
+<!-- If you want, paste your modal blocks and I’ll merge them back into this version cleanly. -->
+
+<script>
+    // Theme Toggle
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        root.setAttribute('data-theme', 'light');
+        icon.textContent = '☀️';
+    } else {
+        root.setAttribute('data-theme', 'dark');
+        icon.textContent = '🌙';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        if (isLight) {
+            root.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            icon.textContent = '🌙';
+        } else {
+            root.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            icon.textContent = '☀️';
+        }
+    });
+
+    // Case study modals (if your modal HTML exists on the page)
+    const openButtons = document.querySelectorAll('[data-open]');
+    const closeButtons = document.querySelectorAll('[data-close]');
+    const overlays = document.querySelectorAll('.modal-overlay');
+
+    function openModal(id){
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(el){
+        el.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    openButtons.forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-open'))));
+    closeButtons.forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal-overlay'))));
+    overlays.forEach(overlay => overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(overlay); }));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlays.forEach(o => o.style.display === 'flex' && closeModal(o)); });
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Althaf</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        :root{
+            --bg:#0b1220;
+            --card:rgba(255,255,255,.06);
+            --border:rgba(255,255,255,.12);
+            --text:rgba(255,255,255,.92);
+            --muted:rgba(255,255,255,.68);
+            --accent:#6ee7ff;
+            --accent2:#a78bfa;
+            --shadow:0 14px 44px rgba(0,0,0,.35);
+            --radius:18px;
+        }
+
+        *{ box-sizing:border-box; }
+        body{
+            margin:0;
+            font-family:Inter,system-ui;
+            color:var(--text);
+            background:
+                    radial-gradient(900px 600px at 15% 20%, rgba(110,231,255,.14), transparent 60%),
+                    radial-gradient(700px 500px at 85% 10%, rgba(167,139,250,.16), transparent 55%),
+                    var(--bg);
+        }
+
+        a{ color:inherit; text-decoration:none; }
+        .container{ width:min(1100px,92%); margin:auto; }
+
+        /* Navbar */
+        .navbar{
+            position:sticky; top:0; z-index:10;
+            backdrop-filter:blur(14px);
+            background:rgba(11,18,32,.75);
+            border-bottom:1px solid var(--border);
+        }
+        .nav-container{
+            display:flex; justify-content:space-between; align-items:center;
+            padding:14px 0;
+        }
+        .brand{ font-weight:800; }
+        .nav-links a{
+            margin-left:14px;
+            padding:8px 12px;
+            border-radius:10px;
+            font-weight:600;
+            color:var(--muted);
+        }
+        .nav-links a.active{ background:var(--card); color:var(--text); }
+
+        /* Page Hero */
+        .page-hero{ padding:44px 0 20px; }
+        .page-hero h1{ margin:0; font-size:36px; }
+        .page-subtitle{
+            margin-top:10px;
+            color:var(--muted);
+            max-width:760px;
+            line-height:1.6;
+        }
+
+        /* Project Card */
+        .project{
+            border:1px solid var(--border);
+            background:var(--card);
+            border-radius:var(--radius);
+            padding:24px;
+            box-shadow:var(--shadow);
+            margin-bottom:28px;
+        }
+
+        .project-header{
+            display:flex; justify-content:space-between; align-items:center;
+            margin-bottom:10px;
+        }
+
+        .tag{
+            font-size:12px;
+            padding:6px 10px;
+            border-radius:999px;
+            border:1px solid var(--border);
+            color:var(--muted);
+        }
+
+        .project-desc{
+            color:var(--muted);
+            line-height:1.6;
+            margin-bottom:12px;
+        }
+
+        .chips span{
+            font-size:12px;
+            padding:6px 10px;
+            border-radius:999px;
+            border:1px solid var(--border);
+            margin-right:6px;
+        }
+
+        /* Case Study */
+        details{
+            margin-top:16px;
+            border-top:1px solid var(--border);
+            padding-top:14px;
+        }
+        summary{
+            cursor:pointer;
+            font-weight:700;
+            color:var(--accent);
+            list-style:none;
+        }
+        summary::-webkit-details-marker{ display:none; }
+
+        .case-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:16px;
+            margin-top:16px;
+        }
+
+        .case-box{
+            border:1px solid var(--border);
+            background:rgba(255,255,255,.04);
+            border-radius:14px;
+            padding:16px;
+        }
+        .case-box h4{
+            margin:0 0 8px;
+            font-size:14px;
+        }
+        .case-box p, .case-box li{
+            font-size:14px;
+            color:var(--muted);
+            line-height:1.5;
+        }
+
+        footer{
+            border-top:1px solid var(--border);
+            padding:18px 0;
+            color:var(--muted);
+            margin-top:40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="container nav-container">
+        <div class="brand">Althaf</div>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/projects" class="active">Projects</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <h1>Projects</h1>
+            <p class="page-subtitle">
+                Real-world applications showcasing backend architecture, REST APIs,
+                database design, and scalable Spring Boot development.
+            </p>
+        </div>
+    </section>
+
+    <section class="container">
+
+        <!-- ================= SPICE JAR ================= -->
+        <article class="project">
+            <div class="project-header">
+                <h2>The Spice Jar</h2>
+                <span class="tag">E-Commerce</span>
+            </div>
+
+            <p class="project-desc">
+                A full-stack food ordering and e-commerce platform enabling customers to browse products,
+                manage carts, place orders, and allowing admins to manage inventory and orders.
+            </p>
+
+            <div class="chips">
+                <span>Java</span><span>Spring Boot</span><span>MySQL</span>
+                <span>Thymeleaf</span><span>AWS</span>
+            </div>
+
+            <details>
+                <summary>View Case Study</summary>
+
+                <div class="case-grid">
+                    <div class="case-box">
+                        <h4>Problem</h4>
+                        <p>
+                            Small food businesses need a simple, reliable ordering platform with
+                            admin control and secure backend services.
+                        </p>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Solution</h4>
+                        <p>
+                            Designed REST APIs with Spring Boot and a clean layered architecture,
+                            supporting cart, checkout, and order lifecycle management.
+                        </p>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Architecture</h4>
+                        <ul>
+                            <li>Thymeleaf UI → REST APIs</li>
+                            <li>Service & Repository layers</li>
+                            <li>MySQL persistence</li>
+                            <li>AWS deployment</li>
+                        </ul>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Impact</h4>
+                        <ul>
+                            <li>Clear separation of concerns</li>
+                            <li>Easy admin product & order management</li>
+                            <li>Scalable foundation for payments & analytics</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </article>
+
+        <!-- ================= HEALTH APP ================= -->
+        <article class="project">
+            <div class="project-header">
+                <h2>Healthy Life Tracker</h2>
+                <span class="tag">Health Tech</span>
+            </div>
+
+            <p class="project-desc">
+                A wellness tracking application that helps users record habits, daily health metrics,
+                and track long-term lifestyle progress through secure backend APIs.
+            </p>
+
+            <div class="chips">
+                <span>Java</span><span>Spring Boot</span><span>REST APIs</span>
+                <span>MySQL</span><span>AWS</span>
+            </div>
+
+            <details>
+                <summary>View Case Study</summary>
+
+                <div class="case-grid">
+                    <div class="case-box">
+                        <h4>Problem</h4>
+                        <p>
+                            Users need a structured way to track daily health data and analyze progress
+                            over time with reliable data storage.
+                        </p>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Solution</h4>
+                        <p>
+                            Built RESTful backend services with Spring Boot to store, validate,
+                            and retrieve health metrics securely.
+                        </p>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Architecture</h4>
+                        <ul>
+                            <li>Client → REST API</li>
+                            <li>Validation & Service layer</li>
+                            <li>MySQL history-based data model</li>
+                            <li>AWS-ready deployment</li>
+                        </ul>
+                    </div>
+
+                    <div class="case-box">
+                        <h4>Impact</h4>
+                        <ul>
+                            <li>Clean API design for future mobile apps</li>
+                            <li>Scalable for analytics & reporting</li>
+                            <li>Maintainable backend codebase</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </article>
+
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        © 2025 Althaf Hussain. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

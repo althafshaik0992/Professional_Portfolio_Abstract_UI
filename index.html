@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -339,8 +339,8 @@
                 <a href="#skills">Skills</a>
                 <a href="#experience">Experience</a>
                 <a href="#education">Education</a>
-                <a href="/projects">Projects</a>
-                <a href="/contact" class="btn">Contact</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html" class="btn">Contact</a>
             </nav>
 
             <button id="themeToggle" class="toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
@@ -361,16 +361,11 @@
             </p>
 
             <div class="cta-row">
-                <a class="btn primary" href="/projects">View Projects</a>
-
-                <!-- NOTE: Your current link points to a DOCX with spaces.
-                     It's strongly recommended to rename the file to:
-                     /resume/Althaf_Hussain_Resume.pdf (or .docx) with NO SPACES. -->
-                <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn" target="_blank" rel="noopener">View Resume</a>
-                <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn ghost" download="Althaf_Hussain_Resume.docx">Download Resume</a>
-
-                <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
-                <a class="btn ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="btn primary" href="projects.html">View Projects</a>
+                <a class="btn" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" target="_blank" rel="noopener">View Resume</a>
+                <a class="btn ghost" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" download>Download Resume</a>
+                <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn ghost" href="https://www.linkedin.com/in/althaf-hussain-shaik" target="_blank" rel="noopener">LinkedIn</a>
             </div>
 
             <div class="stats">
@@ -450,7 +445,7 @@
         </div>
     </section>
 
-    <!-- ✅ NEW: EXPERIENCE -->
+    <!-- EXPERIENCE -->
     <section class="section" id="experience">
         <div class="container">
             <div class="section-head">
@@ -518,11 +513,6 @@
                     </ul>
                 </div>
             </div>
-
-            <!-- Data source: your resume PDF -->
-            <p style="margin-top:14px;color:var(--muted);font-size:12px;">
-                Experience summary based on resume. :contentReference[oaicite:0]{index=0}
-            </p>
         </div>
     </section>
 
@@ -561,8 +551,8 @@
                     </div>
 
                     <div class="project-actions">
-                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME/spice-jar" target="_blank" rel="noopener">GitHub</a>
-                        <button class="btn primary" data-open="case-spice">Case Study</button>
+                        <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">GitHub</a>
+                        <a class="btn primary" href="projects.html">View Details</a>
                     </div>
                 </article>
 
@@ -592,15 +582,15 @@
                     </div>
 
                     <div class="project-actions">
-                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME/healthy-life-tracker" target="_blank" rel="noopener">GitHub</a>
-                        <button class="btn primary" data-open="case-health">Case Study</button>
+                        <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">GitHub</a>
+                        <a class="btn primary" href="projects.html">View Details</a>
                     </div>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- ✅ NEW: EDUCATION -->
+    <!-- EDUCATION -->
     <section class="section" id="education">
         <div class="container">
             <div class="section-head">
@@ -612,7 +602,7 @@
                 <div class="timeline-item">
                     <div class="role-row">
                         <div>
-                            <h3 class="role-title">Master’s in Information Technology</h3>
+                            <h3 class="role-title">Master's in Information Technology</h3>
                             <div class="role-sub">Focus: Software systems, cloud, and applied development</div>
                         </div>
                         <div class="role-meta">
@@ -624,7 +614,7 @@
                 <div class="timeline-item">
                     <div class="role-row">
                         <div>
-                            <h3 class="role-title">Master’s in Software Engineering</h3>
+                            <h3 class="role-title">Master's in Software Engineering</h3>
                             <div class="role-sub">Focus: Software design, engineering practices, and project delivery</div>
                         </div>
                         <div class="role-meta">
@@ -633,10 +623,6 @@
                     </div>
                 </div>
             </div>
-
-            <p style="margin-top:14px;color:var(--muted);font-size:12px;">
-                Education details based on resume. :contentReference[oaicite:1]{index=1}
-            </p>
         </div>
     </section>
 
@@ -651,7 +637,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-header">
-                        <h3>Let’s Connect</h3>
+                        <h3>Let's Connect</h3>
                         <span class="project-tag">Open to Roles</span>
                     </div>
 
@@ -665,7 +651,7 @@
 
                     <div class="project-actions">
                         <a class="btn primary" href="mailto:althafjava0992@gmail.com">Email Me</a>
-                        <a class="btn ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+                        <a class="btn ghost" href="https://www.linkedin.com/in/althaf-hussain-shaik" target="_blank" rel="noopener">LinkedIn</a>
                     </div>
                 </div>
 
@@ -678,9 +664,9 @@
                     <p class="project-desc">View or download my resume and explore my work.</p>
 
                     <div class="project-actions">
-                        <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn" target="_blank" rel="noopener">View Resume</a>
-                        <a th:href="@{/resume/Althaf_Hussain_Shaik_Modern_Format.pdf}" class="btn ghost" download="Althaf_Hussain_Resume.docx">Download Resume</a>
-                        <a class="btn ghost" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener">GitHub</a>
+                        <a class="btn" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" target="_blank" rel="noopener">View Resume</a>
+                        <a class="btn ghost" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" download>Download Resume</a>
+                        <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -700,9 +686,6 @@
         </div>
     </div>
 </footer>
-
-<!-- Modals (kept as-is from your original; not repeated here to keep focus) -->
-<!-- If you want, paste your modal blocks and I’ll merge them back into this version cleanly. -->
 
 <script>
     // Theme Toggle
@@ -731,27 +714,6 @@
             icon.textContent = '☀️';
         }
     });
-
-    // Case study modals (if your modal HTML exists on the page)
-    const openButtons = document.querySelectorAll('[data-open]');
-    const closeButtons = document.querySelectorAll('[data-close]');
-    const overlays = document.querySelectorAll('.modal-overlay');
-
-    function openModal(id){
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-    function closeModal(el){
-        el.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-    openButtons.forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-open'))));
-    closeButtons.forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal-overlay'))));
-    overlays.forEach(overlay => overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(overlay); }));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlays.forEach(o => o.style.display === 'flex' && closeModal(o)); });
 </script>
 </body>
 </html>

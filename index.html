@@ -20,7 +20,9 @@
             --muted:rgba(255,255,255,.68);
             --accent:#6ee7ff;
             --accent2:#a78bfa;
+            --accent3:#f472b6;
             --shadow:0 14px 44px rgba(0,0,0,.35);
+            --shadow-glow:0 0 40px rgba(110,231,255,.3);
             --radius:18px;
             --ring:rgba(110,231,255,.22);
         }
@@ -45,15 +47,48 @@
             color:var(--text);
             overflow-x:hidden;
             background:
-                    radial-gradient(900px 600px at 15% 20%, rgba(110,231,255,.14), transparent 60%),
-                    radial-gradient(700px 500px at 85% 10%, rgba(167,139,250,.16), transparent 55%),
-                    radial-gradient(900px 700px at 50% 95%, rgba(34,197,94,.08), transparent 60%),
+                    radial-gradient(1200px 800px at 15% 20%, rgba(110,231,255,.18), transparent 70%),
+                    radial-gradient(1000px 700px at 85% 10%, rgba(167,139,250,.2), transparent 65%),
+                    radial-gradient(1200px 900px at 50% 95%, rgba(244,114,182,.12), transparent 70%),
                     var(--bg);
+            scroll-behavior: smooth;
         }
 
         a{color:inherit;text-decoration:none}
         .container{width:min(1100px,92%);margin:0 auto}
         .sr-only{position:absolute;left:-9999px}
+
+        /* Floating Icons Animation */
+        .floating-icons{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            pointer-events:none;
+            z-index:-1;
+            overflow:hidden;
+        }
+        .floating-icon{
+            position:absolute;
+            font-size:24px;
+            opacity:.15;
+            animation:float 20s infinite ease-in-out;
+        }
+        @keyframes float{
+            0%,100%{transform:translateY(0) rotate(0deg);}
+            25%{transform:translateY(-30px) rotate(90deg);}
+            50%{transform:translateY(-60px) rotate(180deg);}
+            75%{transform:translateY(-30px) rotate(270deg);}
+        }
+        .floating-icon:nth-child(1){top:10%;left:10%;animation-delay:0s;font-size:30px;}
+        .floating-icon:nth-child(2){top:20%;left:80%;animation-delay:2s;font-size:25px;}
+        .floating-icon:nth-child(3){top:60%;left:15%;animation-delay:4s;font-size:35px;}
+        .floating-icon:nth-child(4){top:70%;left:70%;animation-delay:6s;font-size:28px;}
+        .floating-icon:nth-child(5){top:40%;left:50%;animation-delay:8s;font-size:32px;}
+        .floating-icon:nth-child(6){top:85%;left:30%;animation-delay:10s;font-size:26px;}
+        .floating-icon:nth-child(7){top:15%;left:60%;animation-delay:12s;font-size:22px;}
+        .floating-icon:nth-child(8){top:50%;left:90%;animation-delay:14s;font-size:29px;}
 
         /* NAVBAR */
         .navbar{
@@ -74,7 +109,13 @@
         .brand-dot{
             width:10px;height:10px;border-radius:999px;
             background:linear-gradient(135deg,var(--accent),var(--accent2));
-            box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+            box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent),
+                       0 0 20px var(--accent);
+            animation:pulse 2s infinite;
+        }
+        @keyframes pulse{
+            0%,100%{box-shadow:0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent),0 0 20px var(--accent);}
+            50%{box-shadow:0 0 0 10px color-mix(in srgb, var(--accent) 18%, transparent),0 0 30px var(--accent);}
         }
         .nav-links{
             display:flex;align-items:center;gap:10px;flex-wrap:wrap;
@@ -101,10 +142,15 @@
             cursor:pointer;
             user-select:none;
         }
-        .btn:hover{transform:translateY(-1px);background:var(--card2)}
+        .btn:hover{transform:translateY(-2px);background:var(--card2);box-shadow:var(--shadow-glow);}
         .btn.primary{
             border:none;color:#07111f;
             background:linear-gradient(135deg,var(--accent),var(--accent2));
+            box-shadow:0 4px 20px rgba(110,231,255,.4);
+        }
+        .btn.primary:hover{
+            box-shadow:0 6px 30px rgba(110,231,255,.6);
+            transform:translateY(-2px);
         }
         .btn.ghost{background:transparent}
         .btn:focus{outline:none;box-shadow:0 0 0 4px var(--ring)}
@@ -122,7 +168,32 @@
         .toggle span{font-size:16px;line-height:1}
 
         /* HERO */
-        .hero{padding:58px 0 28px}
+        .hero{padding:80px 0 50px;position:relative;}
+        .hero-content{
+            display:grid;
+            grid-template-columns:1fr auto;
+            gap:40px;
+            align-items:center;
+        }
+        .hero-text{
+            max-width:800px;
+        }
+        .hero-avatar{
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:80px;
+            box-shadow:var(--shadow-glow),0 0 60px rgba(110,231,255,.2);
+            animation:avatarFloat 6s ease-in-out infinite;
+        }
+        @keyframes avatarFloat{
+            0%,100%{transform:translateY(0);}
+            50%{transform:translateY(-15px);}
+        }
         .badge{
             display:inline-block;
             padding:8px 12px;border-radius:999px;
@@ -136,6 +207,10 @@
             margin:18px 0 12px;
             line-height:1.05;
             letter-spacing:-.8px;
+            background:linear-gradient(135deg,var(--text),var(--accent),var(--accent2));
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
         }
         .subtitle{
             max-width:780px;
@@ -186,8 +261,15 @@
             transition:transform .15s ease, border-color .2s ease;
         }
         .skill-card:hover{
-            transform:translateY(-2px);
+            transform:translateY(-4px) scale(1.02);
             border-color:color-mix(in srgb, var(--text) 20%, var(--border));
+            box-shadow:var(--shadow-glow);
+        }
+        .icon{
+            transition:transform .3s ease;
+        }
+        .skill-card:hover .icon{
+            transform:rotate(10deg) scale(1.1);
         }
         .icon{
             width:42px;height:42px;flex:0 0 42px;
@@ -216,8 +298,9 @@
             transition:transform .15s ease, border-color .2s ease;
         }
         .project-card:hover{
-            transform:translateY(-2px);
+            transform:translateY(-4px) scale(1.02);
             border-color:color-mix(in srgb, var(--text) 20%, var(--border));
+            box-shadow:var(--shadow-glow);
         }
         .project-header{
             display:flex;justify-content:space-between;align-items:flex-start;
@@ -264,8 +347,13 @@
             position:absolute;
             left:0;top:0;bottom:0;
             width:4px;
-            background:linear-gradient(180deg,var(--accent),var(--accent2));
+            background:linear-gradient(180deg,var(--accent),var(--accent2),var(--accent3));
             opacity:.9;
+            box-shadow:0 0 10px var(--accent);
+        }
+        .timeline-item:hover{
+            transform:translateX(4px);
+            transition:transform .3s ease;
         }
         .role-row{
             display:flex;
@@ -321,11 +409,38 @@
         .footer-links{display:flex;gap:14px;flex-wrap:wrap}
         .footer-links a:hover{color:var(--text)}
 
-        @media (max-width: 720px){ .nav-links a:not(.btn){display:none} }
+        @media (max-width: 720px){
+            .nav-links a:not(.btn){display:none}
+            .hero-content{grid-template-columns:1fr;text-align:center;}
+            .hero-avatar{margin:0 auto;}
+        }
+
+        /* Scroll Animation */
+        .fade-in{
+            opacity:0;
+            transform:translateY(30px);
+            transition:opacity .6s ease,transform .6s ease;
+        }
+        .fade-in.visible{
+            opacity:1;
+            transform:translateY(0);
+        }
     </style>
 </head>
 
 <body>
+<!-- Floating Icons Background -->
+<div class="floating-icons">
+    <div class="floating-icon">☕</div>
+    <div class="floating-icon">🌱</div>
+    <div class="floating-icon">☁</div>
+    <div class="floating-icon">🐳</div>
+    <div class="floating-icon">🗄</div>
+    <div class="floating-icon">🔌</div>
+    <div class="floating-icon">⚡</div>
+    <div class="floating-icon">🔒</div>
+</div>
+
 <header class="navbar">
     <div class="container nav-container">
         <a class="brand" href="#home">
@@ -354,40 +469,45 @@
     <!-- HERO -->
     <section class="hero">
         <div class="container">
-            <p class="badge">Java • Spring Boot • AWS</p>
-            <h1>Java & Spring Boot Developer</h1>
-            <p class="subtitle">
-                Building scalable backend systems, secure REST APIs, and cloud-ready applications using clean architecture and modern engineering practices.
-            </p>
+            <div class="hero-content fade-in">
+                <div class="hero-text">
+                    <p class="badge">Java • Spring Boot • AWS</p>
+                    <h1>Java & Spring Boot Developer</h1>
+                    <p class="subtitle">
+                        Building scalable backend systems, secure REST APIs, and cloud-ready applications using clean architecture and modern engineering practices.
+                    </p>
 
-            <div class="cta-row">
-                <a class="btn primary" href="projects.html">View Projects</a>
-                <a class="btn" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" target="_blank" rel="noopener">View Resume</a>
-                <a class="btn ghost" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" download>Download Resume</a>
-                <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">GitHub</a>
-                <a class="btn ghost" href="https://www.linkedin.com/in/althaf-hussain-shaik" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
+                    <div class="cta-row">
+                        <a class="btn primary" href="projects.html">🚀 View Projects</a>
+                        <a class="btn" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" target="_blank" rel="noopener">📄 View Resume</a>
+                        <a class="btn ghost" href="resume/Althaf_Hussain_Shaik_Modern_Format.pdf" download>⬇️ Download</a>
+                        <a class="btn ghost" href="https://github.com/althafshaik0992" target="_blank" rel="noopener">💻 GitHub</a>
+                        <a class="btn ghost" href="https://www.linkedin.com/in/althaf-hussain-shaik" target="_blank" rel="noopener">💼 LinkedIn</a>
+                    </div>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">6+</div>
-                    <div class="stat-label">Years Experience</div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">6+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">Spring</div>
+                            <div class="stat-label">Microservices</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">AWS</div>
+                            <div class="stat-label">Cloud Deployments</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">Spring</div>
-                    <div class="stat-label">Microservices</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">AWS</div>
-                    <div class="stat-label">Cloud Deployments</div>
-                </div>
+                <div class="hero-avatar">👨‍💻</div>
             </div>
         </div>
     </section>
 
     <!-- SKILLS -->
     <section class="section" id="skills">
-        <div class="container">
+        <div class="container fade-in">
             <div class="section-head">
                 <h2>Technical Skills</h2>
                 <p>Tools I use to design, build, and ship production systems.</p>
@@ -447,7 +567,7 @@
 
     <!-- EXPERIENCE -->
     <section class="section" id="experience">
-        <div class="container">
+        <div class="container fade-in">
             <div class="section-head">
                 <h2>Professional Experience</h2>
                 <p>Recent roles focused on scalable microservices, cloud deployments, and modern frontend modules.</p>
@@ -518,7 +638,7 @@
 
     <!-- PROJECTS -->
     <section class="section" id="projects">
-        <div class="container">
+        <div class="container fade-in">
             <div class="section-head">
                 <h2>Featured Projects</h2>
                 <p>Two real-world apps with end-to-end development and backend ownership.</p>
@@ -592,7 +712,7 @@
 
     <!-- EDUCATION -->
     <section class="section" id="education">
-        <div class="container">
+        <div class="container fade-in">
             <div class="section-head">
                 <h2>Education</h2>
                 <p>Academic background supporting software engineering fundamentals and modern development practices.</p>
@@ -628,7 +748,7 @@
 
     <!-- CONTACT -->
     <section class="section" id="contact">
-        <div class="container">
+        <div class="container fade-in">
             <div class="section-head">
                 <h2>Contact</h2>
                 <p>Want to collaborate or discuss an opportunity? Reach out.</p>
@@ -713,6 +833,24 @@
             localStorage.setItem('theme', 'light');
             icon.textContent = '☀️';
         }
+    });
+
+    // Scroll Animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
     });
 </script>
 </body>
